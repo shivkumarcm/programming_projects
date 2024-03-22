@@ -68,3 +68,29 @@ def remove_nth_last_node(head, n):
         head = head.next
 
     return head
+
+def sort_colors(colors):
+    """
+    Given an array, colors, which contains a combination of the following three elements: 0, 1, 2
+    Returned a sorted array
+    """
+    start0s = -1
+    current1 = 0
+    end2s = len(colors)
+
+    while(current1 < end2s):
+        if colors[current1] == 0:
+            start0s = start0s + 1
+            __swap(colors, start0s, current1)
+            current1 = current1 + 1
+        elif colors[current1] == 1:
+            current1 = current1 + 1
+        else:
+            end2s = end2s - 1
+            __swap(colors, current1, end2s)
+    return colors
+
+def __swap(colors, i, j):
+    temp = colors[i]
+    colors[i] = colors[j]
+    colors[j] = temp
