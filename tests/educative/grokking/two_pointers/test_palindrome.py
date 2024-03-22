@@ -10,6 +10,10 @@ class TestPalindrome(unittest.TestCase):
     self.assertTrue(is_palindrome("A"))
     self.assertFalse(is_palindrome("ABCDABCD"))
 
+  def test_empty(self):
+    self.assertTrue(is_palindrome(""))
+    self.assertFalse(is_palindrome(None))
+
 if __name__ == '__main__':
     unittest.main()
   
