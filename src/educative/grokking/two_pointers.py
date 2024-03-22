@@ -94,3 +94,63 @@ def __swap(colors, i, j):
     temp = colors[i]
     colors[i] = colors[j]
     colors[j] = temp
+
+def reverse_words(sentence):
+  if not sentence:
+    return None
+
+  # Turn it into a list of characters
+  # since Python strings are immutable
+  charlist = list(sentence)
+  length = len(sentence)
+
+  __reverse_string(charlist, 0, length)
+  start = 0
+  end = 0
+  while start < length:
+    while end < length and charlist[end] != ' ':
+      end = end + 1
+    __reverse_string(charlist, start, end)
+    start = end = end + 1
+
+  retval = list()
+
+  # Remove leading white spaces
+  ptr = 0
+  while ptr < length and str.isspace(charlist[ptr]):
+    ptr = ptr + 1
+
+  # Remove trailing white spaces
+  while length > 0 and str.isspace(charlist[length-1]):
+    length = length - 1
+
+
+  # Now both start and end point to the first word
+  while ptr < length:
+    # build the word
+    word = list()
+    while ptr < length and not str.isspace(charlist[ptr]):
+      word.append(charlist[ptr])
+      ptr = ptr + 1
+
+    # Append it to the return value
+    for c in word:
+      retval.append(c)
+
+    # add a single space
+    if ptr < length:
+      retval.append(' ')
+
+    # ignore white spaces
+    while ptr < length and str.isspace(charlist[ptr]):
+      ptr = ptr + 1
+
+  return ''.join(str(c) for c in retval)
+
+def __reverse_string(charlist, start, end):
+  while start < end:
+    temp = charlist[start]
+    charlist[start] = charlist[end-1]
+    charlist[end-1] = temp
+    start = start + 1
+    end = end - 1
