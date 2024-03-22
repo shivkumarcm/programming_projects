@@ -1,5 +1,5 @@
 # Source: https://www.educative.io/courses/grokking-coding-interview-patterns-python/remove-nth-node-from-end-of-list
-from linked_list_node import LinkedListNode
+from .linked_list_node import LinkedListNode
 
 # Template for the linked list
 class LinkedList:
