@@ -39,3 +39,32 @@ def find_sum_of_three(nums, target):
          else:
             return True
    return False
+
+from linked_list import LinkedList
+from linked_list_node import LinkedListNode
+
+def remove_nth_last_node(head, n):
+    """
+    Given a singly linked list, remove the nth node from the end
+    of the list and return its head.
+    """
+    prev_start = None
+    start = head
+    end = head.next
+
+    for i in range(n-1):
+        if end == None:
+            raise ValueError("n is greater than length of the linked list!")
+        end = end.next
+    
+    while end:
+        prev_start = start
+        start = start.next
+        end = end.next
+    
+    if prev_start:
+        prev_start.next = start.next
+    else:
+        head = head.next
+
+    return head
