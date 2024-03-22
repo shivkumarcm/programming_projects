@@ -34,6 +34,6 @@ for i in range(5):
         print("Incorrect. The correct answer is : " + str(corr_val))
 
 if score > 0:
-    print("Congratulations, " + user_name +"! You got " + str(score) + " answers correct!")
+    print("Congratulations, " + user_name + "! You got " + str(score) + " answers correct!")
 else:
     print("Sorry, " + user_name + "! None of your answers were correct. Please try again!")
