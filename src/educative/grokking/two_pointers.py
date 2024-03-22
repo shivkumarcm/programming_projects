@@ -40,8 +40,8 @@ def find_sum_of_three(nums, target):
             return True
    return False
 
-from utils.linked_list import LinkedList
-from utils.linked_list_node import LinkedListNode
+from .utils.linked_list import LinkedList
+from .utils.linked_list_node import LinkedListNode
 
 def remove_nth_last_node(head, n):
     """
