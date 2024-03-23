@@ -16,3 +16,22 @@ def is_happy_number(n):
     return True
 
   return False
+
+
+def detect_cycle(head):
+
+  if not head:
+    return False
+  
+  slow_ptr = head
+  fast_ptr = head
+
+  while True:
+     slow_ptr = slow_ptr.next
+     fast_ptr = fast_ptr.next
+     if fast_ptr:
+        fast_ptr = fast_ptr.next
+     if fast_ptr == None:
+        return False
+     if fast_ptr == slow_ptr:
+        return True
