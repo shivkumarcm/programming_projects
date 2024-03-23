@@ -22,7 +22,7 @@ def detect_cycle(head):
 
   if not head:
     return False
-  
+
   slow_ptr = head
   fast_ptr = head
 
@@ -35,3 +35,21 @@ def detect_cycle(head):
         return False
      if fast_ptr == slow_ptr:
         return True
+
+def get_middle_node(head):
+  if not head:
+    return None
+
+  slow_ptr = head
+  fast_ptr = head
+
+  while True:
+    if not fast_ptr:
+      return slow_ptr
+    elif fast_ptr and not fast_ptr.next:
+      return slow_ptr
+
+    slow_ptr = slow_ptr.next
+    fast_ptr = fast_ptr.next
+    if fast_ptr:
+      fast_ptr = fast_ptr.next
