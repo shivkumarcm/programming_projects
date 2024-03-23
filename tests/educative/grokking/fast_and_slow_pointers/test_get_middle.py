@@ -14,7 +14,7 @@ class TestGetMiddle(unittest.TestCase):
     self.assertEqual(get_middle_node(self.create_data([1, 2, 3, 4, 5]).head).data, 3)
     self.assertEqual(get_middle_node(self.create_data([1, 2, 3, 4, 5, 6]).head).data, 4)
     self.assertEqual(get_middle_node(self.create_data([1, 2]).head).data, 2)
-
+  
   def test_empty(self):
     self.assertEqual(get_middle_node(self.create_data([10]).head).data, 10)
     self.assertIsNone(get_middle_node(None))
