@@ -96,6 +96,12 @@ def __swap(colors, i, j):
     colors[j] = temp
 
 def reverse_words(sentence):
+  """
+  Given a sentence, reverse the order of its words without
+  affecting the order of letters within the given word.
+  It may contain leading, trailing or multiple spaces
+  between words.
+  """
   if not sentence:
     return None
 
@@ -123,7 +129,6 @@ def reverse_words(sentence):
   # Remove trailing white spaces
   while length > 0 and str.isspace(charlist[length-1]):
     length = length - 1
-
 
   # Now both start and end point to the first word
   while ptr < length:
@@ -154,3 +159,29 @@ def __reverse_string(charlist, start, end):
     charlist[end-1] = temp
     start = start + 1
     end = end - 1
+
+
+def is_almost_palindrome(s, mismatch=0):
+  """
+  Given a string as input and checks whether it can be a
+  valid palindrome by removing at most one character from it.
+  """
+  if s == None:
+    return False
+  if s == "":
+    return True
+  if mismatch > 1:
+    return False
+
+  start = 0;
+  end = len(s) - 1
+
+  while start < end:
+    if s[start] == s[end]:
+      start = start + 1
+      end = end - 1
+    else:
+      return (is_almost_palindrome(s[start + 1: end + 1], mismatch + 1) or
+          is_almost_palindrome(s[start:end], mismatch + 1))
+
+  return True
