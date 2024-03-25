@@ -123,12 +123,14 @@ public abstract class Person implements Ancestor {
     }
 
     @Override
-    public String printNode(boolean withSpouses, boolean withChildren, boolean withMother, int generations) {
+    public String printNode(boolean withSpouses, boolean withChildren,
+                            boolean withMother, int generations) {
         return printNode(withSpouses, withChildren, withMother, generations, 0);
     }
 
     public String printNode(boolean withSpouses, boolean withChildren,
                             boolean withMother, int generations, int level) {
+
         StringBuilder retval = new StringBuilder();
         retval.append(this);
         if(withSpouses && hasSpouses()) {
@@ -138,7 +140,8 @@ public abstract class Person implements Ancestor {
             retval.append(" m=>"+getMother());
         }
         if(withChildren && hasChildren() && generations > 1) {
-            retval.append("\n").append(printChildren(withSpouses, withChildren, withMother,
+            retval.append("\n")
+                    .append(printChildren(withSpouses, withChildren, withMother,
                     generations-1, level+1));
         }
         return retval.toString();

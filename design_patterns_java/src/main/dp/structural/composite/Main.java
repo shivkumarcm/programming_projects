@@ -68,6 +68,5 @@ public class Main {
         int gens = 4;
         System.out.printf("###################### This is Terah's family (%d generations) ######################\n", gens);
         System.out.println(terah.printNode(false, true, false, gens));
-
     }
 }
