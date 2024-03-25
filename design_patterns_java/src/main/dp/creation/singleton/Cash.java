@@ -164,7 +164,7 @@ public class Cash {
     }
 
     public boolean amountEquals(Cash cash) {
-        return getAmount() == cash.getAmount();
+        return getAmount() - cash.getAmount() < 0.001;
     }
 
     public boolean amountGreater(Cash cash) {
