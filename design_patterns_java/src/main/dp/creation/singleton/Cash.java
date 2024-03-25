@@ -1,19 +1,19 @@
 package main.dp.creation.singleton;
 
 /**
- * A simple implemntation of a singleton design pattern.
+ * A simple implementation of a singleton design pattern.
  * Imagine a store with only one cash register instance.
  */
 public class Cash {
 
-    public static enum Coins {
+    public enum Coins {
         CENTS,
         NICKELS,
         DIMES,
         QUARTERS
     }
 
-    public static enum Bills {
+    public enum Bills {
         ONES,
         FIVES,
         TENS,
@@ -53,10 +53,10 @@ public class Cash {
     }
 
     /**
-     * Copy constructer
+     * Copy constructor
      * @param cash value to be duplicated
      */
-    public Cash(Cash cash)  {
+    public Cash(Cash cash) {
         cloneFrom(cash);
     }
 
@@ -64,7 +64,6 @@ public class Cash {
      * Copies values from the given cash to this one
      * @param cash Cash amount to be copied
      * @return returns this
-     * @throws NegativeValueException if any of the values are negative
      */
     public Cash cloneFrom(Cash cash)  {
         try {
@@ -90,8 +89,8 @@ public class Cash {
 
     /**
      * Adds the given cash amount to this cash object
-     * @param amount
-     * @return
+     * @param amount Cash amount to be added
+     * @return this Cash object
      */
     public Cash add(Cash amount) {
         try {
@@ -110,7 +109,7 @@ public class Cash {
 
     /**
      * Checks if the given Cash amount is present in this Cash object
-     * @param amount
+     * @param amount the cash amount to be checked
      * @return true if the amount is present, false otherwise
      */
     public boolean hasCash(Cash amount) {
@@ -131,12 +130,12 @@ public class Cash {
 
     /**
      * Safely subtracts the given amount
-     * @param amount amount to be subracted
+     * @param amount amount to be subtracted
      * @return returns itself
      * @throws NegativeValueException if subtraction is not possible
      */
     public Cash subtract(Cash amount) throws NegativeValueException {
-        /* Create a duplicate first instead of modifying curent values */
+        /* Create a duplicate first instead of modifying current values */
         Cash duplicated = new Cash(this);
         for (Coins type : Coins.values()) {
             duplicated.setCoin(type, duplicated.getCoin(type) - amount.getCoin(type));
@@ -274,7 +273,7 @@ public class Cash {
                 return setOnes(value);
             }
             case FIVES -> {
-                return setFifties(value);
+                return setFives(value);
             }
             case TENS -> {
                 return setTens(value);
@@ -320,6 +319,9 @@ public class Cash {
 
     @Override
     public boolean equals(Object obj) {
+        if(obj.getClass() != this.getClass()) {
+            return false;
+        }
         Cash amount = (Cash)obj;
         for (Coins type : Coins.values()) {
             if (getCoin(type) == amount.getCoin(type)) {
@@ -336,10 +338,11 @@ public class Cash {
 
     @Override
     public String toString() {
-        return String.format("[Bills: {100s: %d, 50s: %d, 20s: %d, 10s: %d, 5s: %d, 1s: %d} ",
+        return  String.format("Amount: $%.2f ", getAmount()) +
+                String.format("[Bills: {100s: %d, 50s: %d, 20s: %d, 10s: %d, 5s: %d, 1s: %d} ",
                 getHundreds(), getFifties(), getTwenties(), getTens(), getFives(), getOnes()
                 ) +
-        String.format("Coins: {Quarters: %d, Dimes: %d, Nickels: %d, Cents: %d}]",
+                String.format("Coins: {Quarters: %d, Dimes: %d, Nickels: %d, Cents: %d}]",
                 getQuarters(), getDimes(), getNickels(), getCents()
                 );
     }

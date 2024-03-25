@@ -1,12 +1,12 @@
 package main.dp.creation.singleton;
 
 /**
- * A simple implemntation of a singleton design pattern.
+ * A simple implementation of a singleton design pattern.
  * Imagine a store with only one cash register instance.
  */
 public class CashRegister {
 
-    private Cash _totalCash;
+    private final Cash _totalCash;
 
     private CashRegister() {
         _totalCash = new Cash();
@@ -22,30 +22,33 @@ public class CashRegister {
     }
 
     /**
-     * Returns a clone representing total cash
-     * @return
+     * @return Returns a clone representing total cash
      */
     public Cash getTotalCash() {
         return new Cash(_totalCash);
     }
 
-    public void setTotalCash(Cash cash) {
-        this._totalCash = new Cash(cash);
+    public void addCash(Cash cash) {
+        this._totalCash.add(cash);
+    }
+
+    public void removeCash(Cash cash) throws Cash.NegativeValueException {
+        this._totalCash.subtract(cash);
     }
 
     /**
-     * Open the cash register with the given cash
-     * @param cash
+     * Open the cash register and adds the given cash
+     * @param cash Cash to be added to the register
      */
     public void open(Cash cash) {
-        setTotalCash(cash);
+        addCash(cash);
     }
 
     /**
      * Empties the cash register and returns a cloned value of the Cash in it
-     * @return
+     * @return the cloned value of the Cash in it
      */
-    public Cash close() {
+    public Cash closeOut() {
         Cash todaysCash = new Cash(getTotalCash());
         _totalCash.clear();
         return todaysCash;
@@ -53,6 +56,6 @@ public class CashRegister {
 
     @Override
     public String toString() {
-        return "Cash Register Total Value = " + getTotalCash().toString();
+        return getTotalCash().toString();
     }
 }
