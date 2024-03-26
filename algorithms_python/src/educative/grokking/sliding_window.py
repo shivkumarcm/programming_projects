@@ -1,4 +1,9 @@
 def find_repeated_sequences(s, k):
+  """
+  Given a string, s, that represents a DNA subsequence, and a number k,
+  return all the contiguous subsequences (substrings) of length k
+  that occur more than once in the string.
+  """
   hashmap = {}
   start = 0
   end = k
@@ -19,6 +24,10 @@ def find_repeated_sequences(s, k):
   return retval
 
 def find_max_sliding_window(nums, w):
+  """
+  Given an integer list, nums, find the maximum values in all the
+  contiguous subarrays (windows) of size w.
+  """
   n = len(nums);
   if w > n:
     w = n
@@ -51,3 +60,4 @@ def find_max_sliding_window(nums, w):
     end += 1
 
   return retval
+
