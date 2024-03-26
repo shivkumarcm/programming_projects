@@ -2,6 +2,7 @@ import unittest
 
 from educative.grokking.utils.linked_list import LinkedList
 from educative.grokking.linked_list_ops import reverse
+from educative.grokking.linked_list_ops import reverse_k_groups
 
 class TestLinkedListOps(unittest.TestCase):
 
@@ -18,7 +19,7 @@ class TestLinkedListOps(unittest.TestCase):
     self.assertIsNone(ptr1, "first list is longer")
     self.assertIsNone(ptr2, "second list is longer")
 
-  def reverse_generic_test(self, nums):
+  def generic_test_reverse(self, nums):
     # create the first linked list and reverse it
     ll = LinkedList()
     ll.create_linked_list(nums)
@@ -33,14 +34,40 @@ class TestLinkedListOps(unittest.TestCase):
     self.assertEqualList(ll.head, lr.head)
 
   def test_reverse1(self):
-    self.reverse_generic_test([1,-1,-2,3,-4,5])
+    self.generic_test_reverse([1,-1,-2,3,-4,5])
+
+  def test_reverseNone(self):
+    r = reverse(None)
+    self.assertIsNone(r)
 
   def test_reverseEdgeCases(self):
-    self.reverse_generic_test([])
-    self.reverse_generic_test([1])
+    self.generic_test_reverse([])
+    self.generic_test_reverse([1])
 
-  def test_reverse3(self):
-    self.reverse_generic_test([3, -1, 0, 1, 2])
+  def test_reverse2(self):
+    self.generic_test_reverse([3, -1, 0, 1, 2])
+
+  def generic_test_reverse_k_groups(self, nums1, k, nums2):
+    ll1 = LinkedList()
+    ll1.create_linked_list(nums1)
+    ll1.head = reverse_k_groups(ll1.head, k)
+
+    ll2 = LinkedList()
+    ll2.create_linked_list(nums2)
+    self.assertEqualList(ll1.head, ll2.head)
+
+  def test_reverse_k_groups(self):
+    self.generic_test_reverse_k_groups([1,2,3,4,5,6,7,8,9], 3,
+                                       [3,2,1,6,5,4,9,8,7])
+
+    self.generic_test_reverse_k_groups([1,2,3,4,5,6,7,8,9], 9,
+                                       [9,8,7,6,5,4,3,2,1])
+
+    self.generic_test_reverse_k_groups([1,2,3,4,5,6,7,8,9], 1,
+                                       [1,2,3,4,5,6,7,8,9])
+
+    self.generic_test_reverse_k_groups([1,2,3,4,5,6,7,8,9], 2,
+                                       [2,1,4,3,6,5,8,7,9])
 
 
 if __name__ == '__main__':
