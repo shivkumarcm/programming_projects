@@ -15,7 +15,6 @@ def reverse_k_groups(head, k):
   first_head = None
   prev, ptr = None, head
   counter = 0
-  print("\n")
   while ptr:
     i = 0
     prev = None # this will be the new head
@@ -45,3 +44,39 @@ def reverse_k_groups(head, k):
         tail.next = prev
 
   return first_head
+
+def reverse_between(head, left, right):
+  prev, ptr = None, head
+  counter = 1
+  # Traverse the first portion unchanged
+  while ptr and counter < left:
+    prev = ptr
+    ptr = ptr.next
+    counter += 1
+
+  # print("prev =" + str(prev) + " ptr=" + str(ptr))
+  leftptr = prev
+  tail = ptr
+
+  # Reverse the middle portion in place
+  while ptr and counter <= right:
+    temp = ptr.next
+    ptr.next = prev
+    prev = ptr
+    ptr = temp
+    counter += 1
+
+  # print("prev =" + str(prev) + " ptr=" + str(ptr))
+
+  # Attach the first portion of the list with the new head of the reversed portion
+  if leftptr:
+    leftptr.next = prev
+
+  # Attach the tail of the reversed portion to the head of the remaining portion
+  if tail:
+    tail.next = ptr
+
+  if left == 1:  # this means the head will change
+    return prev
+  else:  # else head remains unchanged
+    return head

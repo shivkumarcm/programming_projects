@@ -3,6 +3,7 @@ import unittest
 from educative.grokking.utils.linked_list import LinkedList
 from educative.grokking.linked_list_ops import reverse
 from educative.grokking.linked_list_ops import reverse_k_groups
+from educative.grokking.linked_list_ops import reverse_between
 
 class TestLinkedListOps(unittest.TestCase):
 
@@ -69,6 +70,21 @@ class TestLinkedListOps(unittest.TestCase):
     self.generic_test_reverse_k_groups([1,2,3,4,5,6,7,8,9], 2,
                                        [2,1,4,3,6,5,8,7,9])
 
+  def generic_test_reverse_between(self, nums1, left, right, nums2):
+    ll1 = LinkedList()
+    ll1.create_linked_list(nums1)
+    ll1.head = reverse_between(ll1.head, left, right)
+
+    ll2 = LinkedList()
+    ll2.create_linked_list(nums2)
+    self.assertEqualList(ll1.head, ll2.head)
+  def test_reverse_between(self):
+    self.generic_test_reverse_between([1,2,3,4,5,6,7,8,9], 4,6,
+                                      [1,2,3,6,5,4,7,8,9])
+    self.generic_test_reverse_between([1, 2, 3, 4, 5, 6, 7, 8, 9], 1, 9,
+                                      [9,8,7,6,5,4,3,2,1])
+    self.generic_test_reverse_between([1, 2, 3, 4, 5, 6, 7, 8, 9], 5, 9,
+                                      [1,2,3,4,9,8,7,6,5])
 
 if __name__ == '__main__':
   unittest.main()
