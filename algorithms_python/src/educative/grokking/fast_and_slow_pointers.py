@@ -74,7 +74,7 @@ def find_duplicate(nums):
 
   return slow_ptr
 
-def rev_list(head):
+def __rev_list(head):
   prev = None
   ptr = head
   while ptr:
@@ -85,7 +85,7 @@ def rev_list(head):
   return prev
 
 
-def comp_list(h1, h2):
+def __comp_list(h1, h2):
   while h1 and h2:
     if h1.data == h2.data:
       h1 = h1.next
@@ -95,7 +95,7 @@ def comp_list(h1, h2):
   return True
 
 
-def palindrome(head):
+def is_palindrome(head):
   if not head:
     return False
 
@@ -106,8 +106,8 @@ def palindrome(head):
     slow_ptr = slow_ptr.next
     fast_ptr = fast_ptr.next.next
 
-  second_half = rev_list(slow_ptr)
-  retval = comp_list(head, second_half)
-  rev_list(second_half)
+  second_half = __rev_list(slow_ptr)
+  retval = __comp_list(head, second_half)
+  __rev_list(second_half)
 
   return retval
