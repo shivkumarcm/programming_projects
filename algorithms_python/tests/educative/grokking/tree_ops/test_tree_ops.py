@@ -31,7 +31,9 @@ class TestTreeOps(unittest.TestCase):
         "count": 8, "total": 83, "max": 25, "min": 1,
         TraversalType.DFS_PRE.name: [5, 2, 1, 4, 23, 13, 10, 25],
         TraversalType.DFS_IN.name: [1, 2, 4, 5, 10, 13, 23, 25],
-        TraversalType.DFS_POST.name: [1, 4, 2, 10, 13, 25, 23, 5]
+        TraversalType.DFS_POST.name: [1, 4, 2, 10, 13, 25, 23, 5],
+        TraversalType.BFS_L2R.name: [5, 2, 23, 1, 4, 13, 25, 10],
+        TraversalType.BFS_R2L.name: [5, 23, 2, 25, 13, 4, 1, 10],
       },
       {
         "tree": Tree(TreeNode(100,
@@ -44,14 +46,19 @@ class TestTreeOps(unittest.TestCase):
         "count": 6, "total": 800, "max": 350, "min": 25,
         TraversalType.DFS_PRE.name: [100, 50, 25, 75, 200, 350],
         TraversalType.DFS_IN.name: [25, 50, 75, 100, 200, 350],
-        TraversalType.DFS_POST.name: [25, 75, 50, 350, 200, 100]
+        TraversalType.DFS_POST.name: [25, 75, 50, 350, 200, 100],
+        TraversalType.BFS_L2R.name: [100, 50, 200, 25, 75, 350],
+        TraversalType.BFS_R2L.name: [100, 200, 50, 350, 75, 25],
       },
       {
         "tree": Tree(TreeNode(100)),
         "count": 1, "total": 100, "max": 100, "min": 100,
         TraversalType.DFS_PRE.name: [100],
         TraversalType.DFS_IN.name: [100],
-        TraversalType.DFS_POST.name: [100]
+        TraversalType.DFS_POST.name: [100],
+        TraversalType.BFS_L2R.name: [100],
+        TraversalType.BFS_R2L.name: [100],
+
       },
       {
         "tree": Tree(TreeNode(1, None,
@@ -62,7 +69,9 @@ class TestTreeOps(unittest.TestCase):
         "count": 5, "total": 15, "max": 5, "min": 1,
         TraversalType.DFS_PRE.name: [1, 2, 3, 4, 5],
         TraversalType.DFS_IN.name: [1, 2, 3, 4, 5],
-        TraversalType.DFS_POST.name: [5, 4, 3, 2, 1]
+        TraversalType.DFS_POST.name: [5, 4, 3, 2, 1],
+        TraversalType.BFS_L2R.name: [1, 2, 3, 4, 5],
+        TraversalType.BFS_R2L.name: [1, 2, 3, 4, 5],
       },
       {
         "tree": Tree(TreeNode(-1,
@@ -73,7 +82,9 @@ class TestTreeOps(unittest.TestCase):
         "count": 5, "total": -15, "max": -1, "min": -5,
         TraversalType.DFS_PRE.name: [-1, -2, -3, -4, -5],
         TraversalType.DFS_IN.name: [-5, -4, -3, -2, -1],
-        TraversalType.DFS_POST.name: [-5, -4, -3, -2, -1]
+        TraversalType.DFS_POST.name: [-5, -4, -3, -2, -1],
+        TraversalType.BFS_L2R.name: [-1, -2, -3, -4, -5],
+        TraversalType.BFS_R2L.name: [-1, -2, -3, -4, -5],
       },
     ]
 
@@ -81,6 +92,7 @@ class TestTreeOps(unittest.TestCase):
                             num_nodes, total, max_val, min_val, serialized_list):
     #tree.traverse(traversal_type, line_printer)
 
+    #print(traversal_type)
     self.assertEqual(tree.traverse(traversal_type, counter), num_nodes,
                      "Node count does not match!")
     self.assertEqual(tree.traverse(traversal_type, adder), total,
@@ -105,9 +117,9 @@ class TestTreeOps(unittest.TestCase):
     #print(avg_val, total/num_nodes)
     #assert avg_val == total/num_nodes
 
-  def test_all_trees(self):
+  def test_traversal_all_trees(self):
     for tree_data in self.getSampleTrees(): # for every tree_data the list of sample trees
-      for traversal_type in TraversalType:  # for every traveral type known
+      for traversal_type in TraversalType:  # for every traversal type known
         self.generic_test_traverse(tree_data["tree"],traversal_type,
                                    tree_data["count"],
                                    tree_data["total"],
