@@ -1,3 +1,4 @@
+import io
 import unittest
 
 from educative.grokking.utils.tree import Tree
@@ -17,8 +18,7 @@ serializer = lambda x, args: (args.append(x), args)[1]
 
 class TestTreeOps(unittest.TestCase):
 
-  def getSampleTrees(self):
-    return [
+  sample_trees = [
       {
         "tree": Tree(TreeNode(5,
                     TreeNode(2,
@@ -105,20 +105,10 @@ class TestTreeOps(unittest.TestCase):
                      "Average value does not match!")
     self.assertEqual(tree.traverse(traversal_type, serializer, list()), serialized_list,
                      "Lists differ for " + traversal_type.name)
-    print(tree.traverse(traversal_type, serializer, list()))
-
-
-    #print("sum = " + str(total))
-    #num_nodes = tree.traverse(TraversalType.DFS_IN, counter)
-    #print("nodes = " + str(num_nodes))
-    #max_val = tree.traverse(TraversalType.DFS_IN, find_max)
-    #print("max = " + str(max_val))
-    #_, avg_val = tree.traverse(TraversalType.DFS_IN, find_avg)
-    #print(avg_val, total/num_nodes)
-    #assert avg_val == total/num_nodes
+    #print(tree.traverse(traversal_type, serializer, list()))
 
   def test_traversal_all_trees(self):
-    for tree_data in self.getSampleTrees(): # for every tree_data the list of sample trees
+    for tree_data in self.sample_trees: # for every tree_data the list of sample trees
       for traversal_type in TraversalType:  # for every traversal type known
         self.generic_test_traverse(tree_data["tree"],traversal_type,
                                    tree_data["count"],
@@ -126,20 +116,18 @@ class TestTreeOps(unittest.TestCase):
                                    tree_data["max"],
                                    tree_data["min"],
                                    tree_data[traversal_type.name])
+  def test_serialize_tree(self):
+    orig_tree = self.sample_trees[0]["tree"]
+    output_string = orig_tree.serialize()
+    print(output_string)
 
-#  def test_traverse_preorder(self):
-#    self.generic_test_traverse(self.getSampleTree1(), TraversalType.DFS_PRE,
-#                               8, 83, 25, 1,
-#                               [5, 2, 1, 4, 23, 13, 10, 25])
-#  def test_traverse_inorder(self):
-#    self.generic_test_traverse(self.getSampleTree1(), TraversalType.DFS_IN,
-#                               8, 83, 25, 1,
-#                               [1, 2, 4, 5, 10, 13, 23, 25])
+    new_tree = Tree()
+    new_tree.deserialize(output_string)
 
-#  def test_traverse_postorder(self):
-#    self.generic_test_traverse(self.getSampleTree1(), TraversalType.DFS_POST,
-#                               8, 83, 25, 1,
-#                               [1, 4, 2, 10, 13, 25, 23, 5])
+    print(orig_tree.traverse(TraversalType.DFS_PRE, serializer, []))
+    print(new_tree.traverse(TraversalType.DFS_PRE, serializer, []))
+    #orig_tree.root.pretty_print()
+    #new_tree.root.pretty_print()
 
 if __name__ == "__main__":
   unittest.main()

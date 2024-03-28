@@ -76,3 +76,62 @@ class TreeNode:
         nodeQueue.put(node.left)
 
     return args
+
+  def serialize(self, buffer):
+    buffer.write(str(self))
+    if not self.left and not self.right:
+      return
+    if self.left:
+      buffer.write(",")
+      self.left.serialize(buffer)
+    else: buffer.write(",null")
+    if self.right:
+      buffer.write(",")
+      self.right.serialize(buffer)
+    else: buffer.write(",null")
+
+  def read_chunk(self, buffer):
+    chunk = []
+    while True:
+      c = buffer.read(1)
+      if c == ',' or c == ']':
+        return ''.join(chunk)
+      elif c == '': # end of buffer
+        return ''
+      else:
+        chunk.append(c)
+
+  def deserialize(self, buffer):
+    # Deserialize does not work perfectly at the moment
+    next_chunk = self.read_chunk(buffer)
+    if next_chunk == "":
+      return
+
+    if next_chunk == "null":
+      self.left = None
+      right_chunk = self.read_chunk(buffer)
+      if right_chunk != "":
+        self.right = TreeNode(int(right_chunk))
+        self.right.deserialize(buffer)
+      return
+
+    next_value = int(next_chunk)
+    if next_value < self.data:
+      self.left = TreeNode(next_value)
+      self.left.deserialize(buffer)
+      right_chunk = self.read_chunk(buffer)
+      if right_chunk != "":
+        self.right = TreeNode(int(right_chunk))
+        self.right.deserialize(buffer)
+      return
+
+    self.right = TreeNode(next_value)
+    self.right.deserialize(buffer)
+
+  def pretty_print(self, level=0, tag="Rt"):
+    print((" " * level) + tag + ":" + str(self.data))
+    if self.left:
+      self.left.pretty_print(level+1, "L"+str(self.data))
+    if self.right:
+      self.right.pretty_print(level+1, "R"+str(self.data))
+
