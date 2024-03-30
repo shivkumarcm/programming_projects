@@ -86,3 +86,51 @@ def calculator(s):
         result = 0
 
 
+def remove_duplicates(string):
+  """
+  Remove successive duplicates in string
+  abbc -> ac
+  azxxzy -> ay
+  """
+  stack = Stack()
+  for letter in string:
+      if stack.empty():
+          stack.put(letter)
+      else:
+          prev = stack.get()
+          if prev != letter:
+              stack.put(prev)
+              stack.put(letter)
+  retval = []
+  while not stack.empty():
+      retval.append(stack.get())
+  retval.reverse()
+  return ''.join(retval)
+
+def min_remove_parentheses(s):
+  """
+  Remove the minimum number of parentheses to make
+  it a proper expression and return.
+  """
+  stack = Stack()
+
+  i = 0
+  for letter in s:
+    if letter == '(':
+      stack.put((i, letter))
+    if letter == ')':
+      if not stack.empty():
+        stack_top = stack.get()
+        if stack_top[1] != '(':
+          stack.put(stack_top)
+          stack.put((i, letter))
+      else:
+        stack.put((i, letter))
+    i += 1
+
+  lst = [letter for letter in s]
+  while not stack.empty():
+    i, _ = stack.get()
+    lst[i] = ''
+
+  return ''.join(lst)
