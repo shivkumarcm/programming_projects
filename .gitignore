@@ -3,3 +3,8 @@
 .DS_Store
 .idea/
 *.class
+node_modules/
+package-lock.json
+notes.txt
+.gitignore.swp
+
