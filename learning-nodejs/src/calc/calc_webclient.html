@@ -1,0 +1,44 @@
+<body>
+    <form id="mathForm">
+        <p><label>X:     </label><input id="x" type="text" placeholder="0"/>
+        <p><label>Y:     </label><input id="y" type="text" placeholder="0"/>
+        <p>
+            <input type="radio" name="op" value="add" checked="checked">Add</input>
+            <input type="radio" name="op" value="sub">Subtract</input>
+            <input type="radio" name="op" value="mul">Muliply</input>
+            <input type="radio" name="op" value="div">Divide</input>
+            <input type="radio" name="op" value="pow">Power</input>
+            <input type="radio" name="op" value="sqr">Square</input>
+        <p><button id="btnCalc">Calculate</button>
+        <p><label>Answer: </label><input id="answer" type="text" placeholder="0" disabled/>
+        
+    </form>
+    <script>
+        var mathForm = document.getElementById('mathForm')
+        var xBox = mathForm.elements["x"]
+        var yBox = mathForm.elements["y"]
+        var answerBox = mathForm.elements["answer"]
+
+
+        mathForm.addEventListener('submit', (e) => {
+            e.preventDefault()
+            const x = xBox.value
+            const y = yBox.value
+            console.log(x)
+            console.log(y)
+            var op = document.querySelector('input[name="op"]:checked').value
+
+            fetch('http://localhost:8080/' + op + '?x=' + x + '&y=' + y).then((response) => {
+                response.json().then((data) => {
+                    if (data.error) {
+                        console.log(data.error)             
+                    } else {
+                        console.log(data.answer)
+                        answerBox.value = data.answer
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+
