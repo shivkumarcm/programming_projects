@@ -7,4 +7,6 @@ node_modules/
 package-lock.json
 notes.txt
 .gitignore.swp
+build/
+.vscode
 
