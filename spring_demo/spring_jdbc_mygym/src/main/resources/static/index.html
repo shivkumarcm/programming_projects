@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table, th, td {
+          border: 1px solid white;
+          border-collapse: collapse;
+        }
+        th, td {
+          background-color: #96D4D4;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var trHTML = '';
+            $.get("http://localhost:8080/mygym", function(data, status){
+            var jsonData = jQuery.parseJSON(data);
+                $.each(jsonData.members, function (i, item) {
+                    trHTML += '<tr><td>' + item.memberId + '</td><td>'
+                    + item.firstName + '</td><td>'
+                    + item.lastName +'</td></tr>';
+                });
+                $('#membersTable tmbody').html(trHTML)
+            });
+        });
+    </script>
+</head>
+<body>
+
+<table id="membersTable">
+    <thead>
+    <th>Member ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+</body>
+</html>

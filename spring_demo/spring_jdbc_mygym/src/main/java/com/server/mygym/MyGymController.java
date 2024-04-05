@@ -28,7 +28,7 @@ public class MyGymController {
     @GetMapping("/mygym")
     public String index() {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("{ \"members\" = [");
+        buffer.append("{ \"members\": [");
         try {
             Connection dbconn = DriverManager.getConnection(DB_URL, USER, PWD);
             Statement stmnt = dbconn.createStatement();
