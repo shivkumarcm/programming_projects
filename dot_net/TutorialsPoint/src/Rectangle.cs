@@ -41,12 +41,12 @@ class Rectangle {
 
     public void ReadLength() {
         Console.Write("Enter length of rectangle: ");
-        SetLength(int.Parse(Console.ReadLine()));
+        SetLength(int.Parse(Console.ReadLine() ?? "1"));
     }
 
     public void ReadWidth() {
         Console.Write("Enter width of rectangle: ");
-        SetWidth(int.Parse(Console.ReadLine()));
+        SetWidth(int.Parse(Console.ReadLine() ?? "1"));
     }
 
     public void ReadDimensions() {

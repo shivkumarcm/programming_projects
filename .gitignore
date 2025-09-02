@@ -1,4 +1,4 @@
-
+*.out
 *.pyc
 .DS_Store
 .idea/
@@ -9,4 +9,8 @@ notes.txt
 .gitignore.swp
 build/
 .vscode
-
+bin/
+*.dll
+*.cache
+obj/
+coding_c/leet/easy/a.out

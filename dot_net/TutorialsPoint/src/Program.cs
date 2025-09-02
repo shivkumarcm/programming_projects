@@ -1,4 +1,5 @@
 ﻿using System;
+using FileHandling;
 
 namespace TutorialsPoint;
 
@@ -143,6 +144,14 @@ class Program {
 
         //ArraysMain();
 
-        MatrixMain();
+        //MatrixMain();
+
+        //Warehouse.Main.Test1();
+
+        //Geometry.Tester.MainTest();
+
+        //FileHandlerTester.TestAll();
+
+        Linq.LinqExample.Basic();
     }
 }
