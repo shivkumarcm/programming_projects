@@ -6,6 +6,8 @@ using System.Collections;
 using YamlDotNet.Core;
 using YamlDotNet.Core.Events;
 
+namespace Costco.Warehouse.Data;
+
 public class DataCache
 {
 

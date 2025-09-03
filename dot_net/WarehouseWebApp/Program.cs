@@ -1,10 +1,12 @@
 using YamlDotNet.Core;
+using Costco.Warehouse.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -16,13 +18,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
 DataCache.InitData();
 DataCache.PrintData();
+
+app.UseStaticFiles();
+app.UseDefaultFiles();
+app.MapRazorPages();
 
 app.MapGet("/items", (HttpRequest request) =>
 {
@@ -30,7 +31,7 @@ app.MapGet("/items", (HttpRequest request) =>
 })
 .WithName("GetItems");
 
-app.MapGet("/item/{id}", (string id) =>
+app.MapGet("/item", (string id) =>
 {
     return DataCache.Items[id];
 })
