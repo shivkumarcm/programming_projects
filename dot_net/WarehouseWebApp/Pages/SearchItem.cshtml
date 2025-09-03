@@ -1,0 +1,39 @@
+﻿@page
+@using Costco.Warehouse.Data;
+@using MyApp.Namespace
+@model ItemModel;
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Item Display Page</title>
+    </head>
+    <body>
+        @if(Model.ItemData != null)
+        {
+            <h3 style="color:green">Item Found!</h3>
+            <table border="2">
+                <thead>
+                    <th>Item Id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </thead>
+                <body>
+                    <td id="id">@Model.ItemData.Id</td>
+                    <td id="name">@Model.ItemData.Name</td>
+                    <td id="price">$@Model.ItemData.Price</td>
+                </body>
+            </table>
+        }
+        else if(Model.Id != null)
+        {
+            <h3 style="color:red">No Item Found for '@Model.Id'</h3>
+        }
+        <h1>Search Item by Id</h1>
+        <form action="/SearchItem">
+            <label>Enter Item Id:</label>
+            <input type="text" id="id" name="id"/>
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
+</html>
